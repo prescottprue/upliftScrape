@@ -10,6 +10,7 @@ var request = require('request');
 
 //var fxml_url = 'http://flightxml.flightaware.com/json/FlightXML2/';
 var foodery = 'http://www.kimonolabs.com/api/8ab8g67o?apikey=7f8726a3ca95deffb99820d4dc373c91';
+var foodler = 'http://www.kimonolabs.com/api/6n9804eg?apikey=7f8726a3ca95deffb99820d4dc373c91'
 //var username = 'YOUR_USERNAME';
 //var apiKey = 'YOUR_APIKEY';
 request(foodery, function(err, response, body){
@@ -17,11 +18,21 @@ request(foodery, function(err, response, body){
   var items = data.results.Food;
   for (var i=0; i<items.length; i++){
     var title = items[i].Title;
-    console.log(title);
+    var picture = items[i].Picture.src;
+    var allergens = items[i].Allergens;
   }
-  console.log(items);
 });
-
+request(foodler, function(err, response, body){
+  var data = JSON.parse(body);
+  console.log(data.results.collection1);
+  /*
+  for (var i=0; i<items.length; i++){
+    var title = items[i].Title;
+    var picture = items[i].Picture.src;
+    var allergens = items[i].Allergens;
+    console.log(allergens);
+  }*/
+});
 /*
 restclient.get(fxml_url + 'MetarEx', {
     username: username,
