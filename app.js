@@ -12,6 +12,7 @@ var parseString = require('xml2js').parseString;
 //var fxml_url = 'http://flightxml.flightaware.com/json/FlightXML2/';
 var foodery = 'http://www.kimonolabs.com/api/8ab8g67o?apikey=7f8726a3ca95deffb99820d4dc373c91';
 var foodler = 'http://www.kimonolabs.com/api/6ftclxke?apikey=7f8726a3ca95deffb99820d4dc373c91';
+var foodlerTitle = 'http://www.kimonolabs.com/api/cho51hok?apikey=7f8726a3ca95deffb99820d4dc373c91';
 var market = 'http://www.SupermarketAPI.com/api.asmx/';
 //var username = 'YOUR_USERNAME';
 var marketApiKey = '274f79f561';
@@ -24,8 +25,7 @@ request(foodery , function(err, response, body){
     var allergens = items[i].Allergens;
   }
 });
-var filter = '&'
-request(foodler + filter, function(err, response, body){
+request(foodler, function(err, response, body){
   var data = JSON.parse(body);
   //console.log(data.results.collection1);
   /*
@@ -36,6 +36,17 @@ request(foodler + filter, function(err, response, body){
     console.log(allergens);
   }*/
 });
+var filter = '&'
+request(foodlerTitle + filter, function(err, response, body){
+  var data = JSON.parse(body);
+  var places = data.results.places;
+  for (var i=0; i<places.length; i++){
+    var title = places[i].title.text;
+    var fulllink = places[i].title.href;
+    var link = fulllink.split(";", 1);
+    console.log(title + ' ' + link);
+  }
+});
 var command = 'GetGroceries';
 var property = 'SearchText';
 var value = 'Peach';
@@ -44,7 +55,7 @@ var marketreq = market + command + '?APIKEY=' + marketApiKey + '&' + property + 
 request(marketreq, function(err, response, body){
   parseString(body, function(err, result){
     var output = result.ArrayOfString.string;
-    console.log(output);
+    //console.log(output);
   })
 });
 /*
