@@ -1,0 +1,28 @@
+{
+  "name": "upliftScrape",
+  "version": "0.0.0",
+  "description": "App to scrape vendor data for Uplifted project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:prescottprue/upliftScrape.git"
+  },
+  "keywords": [
+    "uplift",
+    "scrape"
+  ],
+  "author": "Scott Prue",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/prescottprue/upliftScrape/issues"
+  },
+  "homepage": "https://github.com/prescottprue/upliftScrape",
+  "dependencies": {
+    "restler": "~3.2.0",
+    "node": "*",
+    "request": "~2.34.0"
+  }
+}
