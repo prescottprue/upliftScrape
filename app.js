@@ -7,13 +7,15 @@
 var util = require('util');
 var restclient = require('restler');
 var request = require('request');
+var parseString = require('xml2js').parseString;
 
 //var fxml_url = 'http://flightxml.flightaware.com/json/FlightXML2/';
 var foodery = 'http://www.kimonolabs.com/api/8ab8g67o?apikey=7f8726a3ca95deffb99820d4dc373c91';
-var foodler = 'http://www.kimonolabs.com/api/6n9804eg?apikey=7f8726a3ca95deffb99820d4dc373c91'
+var foodler = 'http://www.kimonolabs.com/api/6ftclxke?apikey=7f8726a3ca95deffb99820d4dc373c91';
+var market = 'http://www.SupermarketAPI.com/api.asmx/';
 //var username = 'YOUR_USERNAME';
-//var apiKey = 'YOUR_APIKEY';
-request(foodery, function(err, response, body){
+var marketApiKey = '274f79f561';
+request(foodery , function(err, response, body){
   var data = JSON.parse(body);
   var items = data.results.Food;
   for (var i=0; i<items.length; i++){
@@ -22,9 +24,10 @@ request(foodery, function(err, response, body){
     var allergens = items[i].Allergens;
   }
 });
-request(foodler, function(err, response, body){
+var filter = '&'
+request(foodler + filter, function(err, response, body){
   var data = JSON.parse(body);
-  console.log(data.results.collection1);
+  //console.log(data.results.collection1);
   /*
   for (var i=0; i<items.length; i++){
     var title = items[i].Title;
@@ -32,6 +35,17 @@ request(foodler, function(err, response, body){
     var allergens = items[i].Allergens;
     console.log(allergens);
   }*/
+});
+var command = 'GetGroceries';
+var property = 'SearchText';
+var value = 'Peach';
+var marketreq = market + command + '?APIKEY=' + marketApiKey + '&' + property + '=' + value;
+
+request(marketreq, function(err, response, body){
+  parseString(body, function(err, result){
+    var output = result.ArrayOfString.string;
+    console.log(output);
+  })
 });
 /*
 restclient.get(fxml_url + 'MetarEx', {
